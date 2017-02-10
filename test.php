@@ -6,6 +6,6 @@ error_reporting(E_ALL);
 
 require_once './vendor/autoload.php';
 
-$test = new Webme\Url\Generator(dirname(__FILE__));
+$test = new Webme\Uri\Generator(dirname(__FILE__));
 
-echo $test->getURL();
+echo $test->getURI();

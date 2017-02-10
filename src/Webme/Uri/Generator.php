@@ -1,9 +1,10 @@
 <?php
 
-namespace Webme\Url;
+namespace Webme\Uri;
 
 /**
- *     
+ * Esta classe transforma um path absoluto em uma url absoluta, desde que este
+ * path esteja dentro da pasta publica do servidor   
  * 
  * Classe: Generator
  * 
@@ -11,11 +12,11 @@ namespace Webme\Url;
  * @package webme-url-generator
  * @subpackage 
  * @category
- * @version v1.0
+ * @version v0.0.0
  * @since 10/02/2017 00:44:24
  * @copyright (cc) 2017, Fernando Petry
  * 
- * @author Fernando Petry <fernandosouza2@gmail.com>                                                  
+ * @author Fernando Petry <fernando@ideia.ppg.br>                                                  
  */
 class Generator
 {
@@ -43,7 +44,7 @@ class Generator
 
     /**
      * Informa a classe que o tipo de navegação é HTTPS
-     * @return \pcore\UrlCompleta
+     * @return Generator
      */
     public function setSSL() {
         $this->http = 'https';
@@ -53,33 +54,26 @@ class Generator
     /**
      * Recupera o nome do servidor, por exemplo localhost
      */
-    private function getServidorNome() {
+    protected function getServerName() {
         if (isset($_SERVER['SERVER_NAME']))
         {
-            //$servidor = str_replace('\\', '/', $_SERVER['SERVER_NAME']);
-//            $servidor = $_SERVER['SERVER_NAME'];
-            $servidor = $_SERVER['HTTP_HOST'];
+            $server = $_SERVER['HTTP_HOST'];
         }
         else
         {
-            //$servidor = str_replace('\\', '/', gethostname());
-            $servidor = gethostname();
+            $server = gethostname();
         }
 
-//        echo $servidor . PHP_EOL;
-        //$servidor = str_replace('/', '', $servidor);
-        return trim($servidor);
+        return trim($server);
     }
 
     /**
      * Verifica o protocolo
      */
-    private function defineProtocol() {
+    protected function defineProtocol() {
         $protocol = "http";
-//        $https = filter_input(INPUT_SERVER, 'HTTPS');
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
         {
-//        if (isset($https) && $https == 'on') {
             $protocol = "https";
         }
         $this->http = $protocol;
@@ -105,7 +99,7 @@ class Generator
         {
             $http = substr($http, 0, -1); // removendo barra do final se houver
         }
-        $http = str_replace($http, $this->getServidorNome(), $this->pathBase);
+        $http = str_replace($http, $this->getServerName(), $this->pathBase);
         $http = str_replace('//', '/', $http);
 
         // segunda parte
@@ -119,7 +113,7 @@ class Generator
         return trim($http);
     }
 
-    public function getURL() {
+    public function getURI() {
         return $this->http . '://' . $this->getHTTP();
     }
 
