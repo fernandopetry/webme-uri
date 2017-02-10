@@ -1,13 +1,13 @@
 <?php
 
-require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+#require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 
 class UrlGenerateTest extends PHPUnit_Framework_TestCase
 {
 
     public function testUm() {
-        /*$url = new Webme\Url\Generator('/media/www/site');
-        $this->assertEquals('http://localhost/site',$url->getURI());*/
+        $url = new Webme\Uri\Generator('/media/www/site');
+        /*$this->assertEquals('http://localhost/site',$url->getURI());*/
     }
 
 
