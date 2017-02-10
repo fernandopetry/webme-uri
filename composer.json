@@ -1,0 +1,24 @@
+{
+    "name": "fernandopetry/webme-url-generator",
+    "description": "Pacote responsável em gerar uma url absoluta, baseado em um path absoluto.",
+    "keywords": ["url", "path" , "petry", "psr-4"],
+    "homepage": "https://github.com/fernandopetry",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fernando Petry",
+            "email": "fernando@ideia.ppg.br",
+            "homepage": "http://www.fernandopetry.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Webme\\Url\\": "src/"}
+    },
+    "require": {
+        "php": "^5.3 || ^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    }
+}
