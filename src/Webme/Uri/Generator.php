@@ -37,7 +37,8 @@ class Generator
      * Método construtor
      * @param string $pathBase É o path base de onde se construira a url completa
      */
-    public function __construct($pathBase) {
+    public function __construct($pathBase)
+    {
         $this->pathBase = $pathBase;
         $this->defineProtocol();
     }
@@ -46,7 +47,8 @@ class Generator
      * Informa a classe que o tipo de navegação é HTTPS
      * @return Generator
      */
-    public function setSSL() {
+    public function setSSL()
+    {
         $this->http = 'https';
         return $this;
     }
@@ -54,26 +56,31 @@ class Generator
     /**
      * Recupera o nome do servidor, por exemplo localhost
      */
-    protected function getServerName() {
-        if (isset($_SERVER['SERVER_NAME']))
-        {
+    protected function getServerName()
+    {
+        if (isset($_SERVER['SERVER_NAME'])) {
             $server = $_SERVER['HTTP_HOST'];
-        }
-        else
-        {
+        } else {
             $server = gethostname();
         }
 
-        return trim($server);
+        $port = $_SERVER['SERVER_PORT'];
+        if ($port != '80' && $port != '443') {
+            $port = ':' . $port;
+        } else {
+            $port = null;
+        }
+
+        return trim($server) . $port;
     }
 
     /**
      * Verifica o protocolo
      */
-    protected function defineProtocol() {
+    protected function defineProtocol()
+    {
         $protocol = "http";
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
-        {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
             $protocol = "https";
         }
         $this->http = $protocol;
@@ -82,29 +89,26 @@ class Generator
     /**
      * Transforma o PATH em HTTP
      */
-    private function getHTTP() {
+    private function getHTTP()
+    {
         $http = $_SERVER['DOCUMENT_ROOT'];
 
         // se for verdadeiro, então estamos em um ambiente Windows
-        if (substr($_SERVER['DOCUMENT_ROOT'], 1, 1) == ":")
-        {
+        if (substr($_SERVER['DOCUMENT_ROOT'], 1, 1) == ":") {
             $http = str_replace('/', '\\', $_SERVER['DOCUMENT_ROOT']);
         }
 
-        if (substr($http, -1) == '/')
-        {
+        if (substr($http, -1) == '/') {
             $http = substr($http, 0, -1); // removendo barra do final se houver
         }
-        if (substr($http, -1) == '\\')
-        {
+        if (substr($http, -1) == '\\') {
             $http = substr($http, 0, -1); // removendo barra do final se houver
         }
         $http = str_replace($http, $this->getServerName(), $this->pathBase);
         $http = str_replace('//', '/', $http);
 
         // segunda parte
-        if (substr($http, -1) == '/')
-        {
+        if (substr($http, -1) == '/') {
             $http = substr($http, 0, -1); // removendo barra do final
         }
 
@@ -113,7 +117,8 @@ class Generator
         return trim($http);
     }
 
-    public function getURI() {
+    public function getURI()
+    {
         return $this->http . '://' . $this->getHTTP();
     }
 

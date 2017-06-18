@@ -2,7 +2,7 @@
     "name": "webme/webme-uri",
     "description": "Pacote responsável em gerar uma url absoluta, baseado em um path absoluto.",
     "keywords": ["url", "path" , "petry", "psr-4"],
-    "homepage": "https://github.com/fernandopetry",
+    "homepage": "https://github.com/fernandopetry/webme-uri",
     "type": "library",
     "license": "MIT",
     "authors": [
